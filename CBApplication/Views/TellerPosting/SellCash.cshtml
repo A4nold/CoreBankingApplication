@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "Sell Cash";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CBApplication.Core.Models.ApplicationDbContext _context = new CBApplication.Core.Models.ApplicationDbContext();
+
+    var bankConfigTable = _context.BankConfigs.ToList();
+    var businessConfig = _context.BankConfigs.FirstOrDefault(c => c.IsOpen == true);
+
+}
+
+@{
+    if (bankConfigTable.Count == 0)
+    {
+        <p style="color: #d1d7b5;">Buisiness Configurations is not yet set</p>
+    }
+    else
+    {
+        if (businessConfig != null)
+        {
+            using (Html.BeginForm("SellCash", "TellerPosting",
+                new { Id = @Session["Id"] }, FormMethod.Post, 
+                new { @class = "form-horizontal col-md-6 col-md-offset-3 card-box display", id = "save" }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="">
+                    
+                    @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status == true))
+                    {
+                        if (ViewBag.Message != null)
+                        {
+                            <div class="alert alert-success">
+                                <strong>
+                                    Success!
+                                </strong>@ViewBag.Message
+                            </div>
+                        }
+                    }
+                    else if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status == false))
+                    {
+                        if (ViewBag.Message != null)
+                        {
+                            <div class="alert alert-danger">
+                                <strong>
+                                    Error!
+                                </strong>@ViewBag.Message
+                            </div>
+                        }
+                    }
+                </div>
+                <div class="form-group">
+                    <span class="badge"><h4 style="text-align:center">Till Balance &nbsp; @Math.Round(ViewBag.tillBalance, 2)</h4></span>
+                </div>
+
+                <div class="form-group">
+                    <div class="">
+                        <input type="number" step="any" name="Amount" placeholder="amount" id="amount" class="form-control" min="1.0"/>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="">
+                        <input type="submit" value="Sell Cash" class="btn btn-success btn-flat" />
+                    </div>
+                </div>
+
+            }
+        }
+        else
+        {
+            <p style="color: #d1d7b5;">Business is Closed!</p>
+        }
+    }
+
+}
+
+@section ViewSpecificJavascript
+{
+    <script>
+        $(document).ready(function () {
+            $("#save").submit(function (e) {
+                var amount = $("#amount").val();
+
+                $(".error").remove();
+
+                if ($("#save").submit) {
+                    $("form *").removeClass("error-box");
+                }
+
+                if (amount.length < 1) {
+                    $("#amount").addClass("error-box");
+                    $("#amount").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[0-9.]*$/;
+
+                    var validName = regExp.test(amount);
+                    if (!validName) {
+                        $("#amount").addClass("error-box");
+                        $('#amount').after('<span class="error">Enter a valid amount</span>');
+                        e.preventDefault();
+                    }
+                }
+            });
+        })
+    </script>
+}
+
+

@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "Index";
+    ViewBag.Description = "";
+}
+
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Success!&nbsp;</strong> @TempData["Message"]
+            </div>
+        }
+
+    </div>
+    
+    <div class="col-xs-12 col-md-12">
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Error!&nbsp;</strong> @TempData["Error"]
+            </div>
+        }
+    </div>
+
+    <div class="col-md-12">
+        @if (Session["Name"] != null)
+        {
+            <h2 style="text-align: center;color: #d1d7b5">Welcome @Session["Name"]</h2>
+
+        }
+    </div>
+
+
+    @if ((string)Session["Role"] == "Admin")
+    {
+        <div class="container-fluid">
+            <div class="col-xs-12 col-md-12" style="margin-top: 20px;">
+                <div class="row">
+                    <div style="background-color:#d1d7b5; padding-bottom: 50px;" class="col-md-3 card-box display">
+                        <h3 style="text-align: center">Number of Customer Accounts</h3>
+                        <h3 style="text-align: center">@TempData["customerAccounts"]</h3>
+                    </div>
+
+                    <div style="background-color:#d1d7b5;padding-bottom: 50px;" class="col-md-3 card-box display">
+                        <h3 style="text-align: center">Number of Till Accounts</h3>
+                        <h3 style="text-align: center">@TempData["tillAccounts"]</h3>
+                    </div>
+
+                    <div style="background-color:#d1d7b5;padding-bottom: 50px;" class="col-md-3 card-box display">
+                        <h3 style="text-align: center">Number of GlAccounts</h3>
+                        <h3 style="text-align: center">@TempData["GlAccounts"]</h3>
+                    </div>
+
+                    <div style="background-color:#d1d7b5;padding-bottom: 50px;" class="col-md-3 card-box display">
+                        <h3 style="text-align: center">Number of Loan Accounts</h3>
+                        <h3 style="text-align: center">@TempData["loanAccounts"]</h3>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="row">
+                <div class="container-fluid">
+                    <div class="col-xs-12 col-md-12" style="margin-top: 40px;">
+                        <div class="row">
+                            <div style="background-color:#d1d7b5; padding-bottom: 50px;" class="col-md-4 card-box display">
+                                <h3 style="text-align: center">Number of Customers</h3>
+                                <h3 style="text-align: center">@TempData["customers"]</h3>
+                            </div>
+
+                            <div style="background-color:#d1d7b5;padding-bottom: 50px;" class="col-md-4 card-box display">
+                                <h3 style="text-align: center">Number of Tellers</h3>
+                                <h3 style="text-align: center">@TempData["tellers"]</h3>
+                            </div>
+
+                            <div style="background-color:#d1d7b5;padding-bottom: 50px;" class="col-md-4 card-box display">
+                                <h3 style="text-align: center">Number of Admins</h3>
+                                <h3 style="text-align: center">@TempData["admin"]</h3>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if ((string) Session["Role"] == "Teller")
+    {
+        <div class="container-fluid">
+            
+
+            <div class="row">
+                <div class="container-fluid">
+                    <div class="col-xs-12 col-md-12" style="margin-top: 40px;">
+                        <div class="row">
+                            <div style="background-color:#d1d7b5; padding-bottom: 50px;" class="col-md-4 card-box display">
+                                <h3 style="text-align: center">Number of Customers</h3>
+                                <h3 style="text-align: center">@TempData["customers"]</h3>
+                            </div>
+
+                            <div style="background-color:#d1d7b5;padding-bottom: 50px;" class="col-md-4 card-box display">
+                                <h3 style="text-align: center">Number of Accounts</h3>
+                                <h3 style="text-align: center">@TempData["customerAccounts"]</h3>
+                            </div>
+
+                            <div style="background-color:#d1d7b5;padding-bottom: 50px;" class="col-md-4 card-box display">
+                                <h3 style="text-align: center">Number of Loan Accounts</h3>
+                                <h3 style="text-align: center">@TempData["loanAccounts"]</h3>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,92 @@
+﻿@using CBApplication.Core.Models
+@model IEnumerable<CBApplication.Core.Models.CustomerAccount>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+
+<div style="margin-top:10px">
+    <table class="table table-bordered table-hover display card-box" id="table_id">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(a => a.AccountName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.AccountNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.AccountType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.branchName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.Balance)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+       
+
+        @foreach (var item in Model)
+        {
+            <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(i => item.AccountName)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.AccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.AccountType)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.branchName)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.Balance)
+                </td>
+                <td>
+
+                    @if (item.isClosed == false)
+                    {
+
+                        if (item.AccountType == AccountType.Current || item.AccountType == AccountType.Savings)
+                        {
+                            @Html.ActionLink(" Close Account", "Close", new { id = item.Id }, new { @class = "fa fa-university action-style", style = "color:red;" })
+                            @Html.ActionLink(" Edit", "Edit", new { id = item.Id }, new { @class = "fa fa-pencil action-style" })
+                            @Html.ActionLink(" Take Loan", "TakeLoan", new { id = item.Id }, new { @class = "fa fa-money action-style", style = "color:green;" })
+                            @Html.ActionLink("Set Lien", "Lien", "CustomerAccount", new { id = item.Id }, new { @class = "action-style" })
+                            @Html.ActionLink(" Details", "Details", new { id = item.Id }, new { @class = "fa fa-eye action-style" })
+
+                        }
+
+
+                        if (item.AccountType == AccountType.Loan)
+                        {
+                            @Html.ActionLink(" Details", "Details", new { id = item.Id }, new { @class = "fa fa-eye action-style" })
+                        }
+                    }
+                    else
+                    {
+                        @Html.ActionLink(" Open Account", "Open", new { id = item.Id }, new { @class = "fa fa-university action-style", style = "color:green;" })
+                    }
+                </td>
+            </tr>
+            </tbody>
+        }
+    </table>
+    @section ViewSpecificJavascript{
+        <script>
+            $(document).ready( function () {
+                $('#table_id').DataTable();
+            } );
+        </script>
+    }
+</div>

@@ -1,0 +1,162 @@
+﻿@model CBApplication.Core.Models.TellerPosting
+@{
+    ViewBag.Title = "Perform Transaction";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CBApplication.Core.Models.ApplicationDbContext _context = new CBApplication.Core.Models.ApplicationDbContext();
+
+    var bankConfigTable = _context.BankConfigs.ToList();
+    var businessConfig = _context.BankConfigs.FirstOrDefault(c => c.IsOpen == true);
+
+}
+
+<div class="col-xs-12 col-md-12">
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Error!&nbsp;</strong> @TempData["Error"]
+        </div>
+    }
+</div>
+
+@{
+    if (bankConfigTable.Count == 0)
+    {
+        <p style="color: #d1d7b5;">Bank Configurations is not yet set</p>
+    }
+    else
+    {
+        if (businessConfig != null)
+        {
+            <p>
+                @Html.ActionLink(" Back to List", "Index",null,new{@class="fa fa-arrow-left btn btn-primary btn-flat"})
+            </p>
+
+            using (Html.BeginForm("Save", "TellerPosting", FormMethod.Post, new { @class = "form-horizontal col-md-6 col-md-offset-3 card-box display",id = "save" }))
+            {
+                <h4>@ViewBag.Title</h4>
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal col-md-6">
+                    @if (ViewBag.Message != null)
+                    {
+                        <div class="alert alert-success">
+                            <strong>Success!&nbsp;</strong> @ViewBag.Message
+                        </div>
+                    }
+                    else if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status == false))
+                    {
+                        if (ViewBag.Message != null)
+                        {
+                            <div class="alert alert-danger">
+                                <strong>
+                                    Error!
+                                </strong>@ViewBag.Message
+                            </div>
+                        }
+                    }
+                </div>
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", Name = "Amount",
+                        id="amount",placeholder="Amount", step = "any", min = 0, Type = "number" })
+                    @Html.ValidationMessage("Account", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group ">
+                    @Html.TextAreaFor(m => m.Narration, new { @class = "form-control", Name = "Narration", id = "narration", placeholder = "Narration" })
+                </div>
+
+                <div class="form-group">
+                    @Html.EnumDropDownListFor(model => model.Type, "Select Posting Type"
+                        , new {@class ="form-control", Name = "Type", id="type"})
+                    @Html.ValidationMessage("AcctEmpty", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden" name="Id" value="@ViewBag.CustomerId" />
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden" name="tellerId" value="@Session["Id"]" />
+                </div>
+
+
+                <div class="form-group">
+                    <div class="">
+                        <input type="submit" value="SUBMIT" class="btn btn-primary btn-flat" />
+                    </div>
+                </div>
+
+
+            }
+        }
+        else
+        {
+            <p style="color: #d1d7b5;">Business is Closed!</p>
+        }
+    }
+
+}
+@section ViewSpecificJavascript
+{
+    <script>
+        $(document).ready(function () {
+            $("#save").submit(function (e) {
+                var amount = $("#amount").val();
+                var type = $("#type").val();
+                var narration = $("#narration").val().trim();
+
+                $(".error").remove();
+
+                if ($("#save").submit) {
+                    $("form *").removeClass("error-box");
+                }
+                
+                if (amount.length < 1) {
+                    $("#amount").addClass("error-box");
+                    $("#amount").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[0-9.]*$/;
+
+                    var validName = regExp.test(amount);
+                    if (!validName) {
+                        $("#amount").addClass("error-box");
+                        $('#amount').after('<span class="error">Enter a valid amount</span>');
+                        e.preventDefault();
+                    }
+                }
+
+                if (narration.length < 1) {
+                    $("#narration").addClass("error-box");
+                    $("#narration").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[A-Za-z0-9.]+( [a-zA-Z0-9.]+)*$/;
+
+                    var validName = regExp.test(narration);
+                    if (!validName) {
+                        $("#narration").addClass("error-box");
+                        $('#narration').after('<span class="error">No special symbols</span>');
+                        e.preventDefault();
+                    }
+                }
+
+
+                if (type == "0") {
+                    $("#type").addClass("error-box");
+                    $("#type").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                }
+            });
+        })
+    </script>
+}
+
+

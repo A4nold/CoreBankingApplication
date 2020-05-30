@@ -1,0 +1,90 @@
+﻿@using CBApplication.Core.Models
+@using CBApplication.Data.Implementations
+@model IEnumerable<CBApplication.Core.Models.GlPosting>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="margin-top: 10px">
+    <p>
+        @Html.ActionLink(" New Post", "Create",null,new{@class="fa fa-plus btn btn-primary btn-flat"})
+    </p>
+    <table class="table table-bordered table-hover card-box display" id="table_id">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(a => a.CreditAccountId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(a => a.CreditAccount.AccCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(a => a.CreditAccount.AccountBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(a => a.CreditAccountNarration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(a => a.DebitAccountId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(a => a.DebitAccount.AccCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(a => a.DebitAccount.AccountBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(a => a.DebitAccountNarration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(a => a.DatePosted)
+            </th>
+        </tr>
+        </thead>
+
+        @foreach (var item in Model)
+        {
+            <tbody>
+            <tr>
+                <td>
+
+                    @{
+                        CBApplication.Core.Models.ApplicationDbContext _context = new CBApplication.Core.Models.ApplicationDbContext();
+                        CBApplication.Core.Models.GlAccountManagement glAccount = _context.GlAccount.Find(item.CreditAccountId);
+                    }
+                    @Html.DisplayFor(i => glAccount.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.CreditAccount.AccCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.CreditAccount.AccountBalance)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.CreditAccountNarration)
+                </td>
+                <td>
+                    @{
+                        CBApplication.Core.Models.ApplicationDbContext _contexts = new CBApplication.Core.Models.ApplicationDbContext();
+                        CBApplication.Core.Models.GlAccountManagement glAccounts = _contexts.GlAccount.Find(item.DebitAccountId);
+                    }
+                    @Html.DisplayFor(i => glAccounts.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.DebitAccount.AccCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.DebitAccount.AccountBalance)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.DebitAccountNarration)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.DatePosted)
+                </td>
+            </tr>
+            </tbody>
+        }
+    </table>
+</div>

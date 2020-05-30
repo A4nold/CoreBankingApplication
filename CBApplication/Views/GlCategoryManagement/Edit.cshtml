@@ -1,0 +1,90 @@
+﻿@model CBApplication.Core.ViewModels.GlCategoryManagementViewModels
+@{
+    ViewBag.Title = "Edit Gl Category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-group">
+    @Html.ActionLink(" Back to List", "Index", null, new { @class = "fa fa-arrow-left btn btn-primary btn-flat" })
+</div>
+
+@using (Html.BeginForm("Edit", "GlCategoryManagement", FormMethod.Post, 
+    new { @class = "form-horizontal col-md-6 col-md-offset-3 card-box display", id = "edit" }))
+{
+    <h4>@ViewBag.Title</h4>
+    @Html.AntiForgeryToken()
+
+    <div class="">
+        
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.GlCategoryManagements.Id)
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.GlCategoryManagements.Name, new { htmlAttributes = new { @class = "form-control", Name = "catName", id = "catName", placeholder = "Category Name" } })
+            @Html.ValidationMessageFor(model => model.GlCategoryManagements.Name, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.GlCategoryManagements.Description, new { htmlAttributes = new { @class = "form-control", Name = "catDescription", id = "desc", placeholder = "Enter Description" } })
+            @Html.ValidationMessageFor(model => model.GlCategoryManagements.Description, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="form-group">
+            <div class="">
+                <input type="submit" value="SUBMIT" class="btn btn-primary btn-flat" />
+            </div>
+        </div>
+    </div>
+}
+@section ViewSpecificJavascript
+{
+    <script>
+        $(document).ready(function () {
+            $("#edit").submit(function (e) {
+                var catName = $("#catName").val();
+                var desc = $("#desc").val();
+
+                $(".error").remove();
+
+                if ($("#edit").submit) {
+                    $("form *").removeClass("error-box");
+                }
+
+                if (catName.length < 1) {
+                    $("#catName").addClass("error-box");
+                    $("#catName").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[A-Za-z]+( [a-zA-Z]+)*$/;
+
+                    var validName = regExp.test(acctName);
+                    if (!validName) {
+                        $("#acctName").addClass("error-box");
+                        $('#acctName').after('<span class="error">Enter a valid name</span>');
+                        e.preventDefault();
+                    }
+                }
+
+                if (desc.length < 1) {
+                    $("#desc").addClass("error-box");
+                    $("#desc").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[A-Za-z0-9.]+( [a-zA-Z0-9.]+)*$/;
+
+                    var validName = regExp.test(desc);
+                    if (!validName) {
+                        $("#desc").addClass("error-box");
+                        $('#desc').after('<span class="error">Enter a valid name</span>');
+                        e.preventDefault();
+                    }
+                }
+            });
+        })
+    </script>
+}
+
+

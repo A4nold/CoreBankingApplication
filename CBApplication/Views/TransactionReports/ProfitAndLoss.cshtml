@@ -1,0 +1,58 @@
+﻿@model CBApplication.Core.ViewModels.ProfitandLossViewModels
+@{
+    ViewBag.Title = "ProfitAndLoss";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table card-box display">
+                <h4 style="text-align: center; color: white;">Income</h4>
+                <thead class="bg-gray-light">
+                    <tr>
+                        <th class="col-md-9">Income Account Name</th>
+                        <th class="col-md-3">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var value in Model.IncomeGL)
+                    {
+                        <tr>
+                            <td>@value.Name</td>
+                            <td>@Math.Round(value.AccountBalance, 2)</td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6" style="padding-top: 36px;">
+            <table class="table card-box display">
+                <h4 style="text-align: center;color:white">Expense</h4>
+                <thead class="bg-gray-light">
+                    <tr>
+                        <th class="col-md-9">Income Account Name</th>
+                        <th class="col-md-3">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var value in Model.ExpenseGl)
+                    {
+                        <tr>
+                            <td>@value.Name</td>
+                            <td>@Math.Round(value.AccountBalance, 2)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6 col-md-offset-3">
+            <div style="padding: 15px;background-color:#d1d7b5" class="card-box display">
+                <p><h2>Profit/Loss: <span style="font-size:24px">@Model.profit</span></h2></p>
+            </div>
+        </div>
+    </div>
+</div>

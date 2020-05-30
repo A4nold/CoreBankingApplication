@@ -1,0 +1,128 @@
+﻿@model CBApplication.Core.Models.Customer
+@{
+    ViewBag.Title = "New Customer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Save", "Customer", FormMethod.Post, new { @class = "form-horizontal col-md-6 col-md-offset-3 card-box display", id = "new" }))
+{
+    <h4>@ViewBag.Title</h4>
+    @Html.AntiForgeryToken()
+    <div class="form-group ">
+        @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", id = "fullname", placeholder = "Full Name" })
+        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group ">
+        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", id = "address", placeholder = "Address" })
+        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group ">
+        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", id = "phoneNumber", placeholder = "PhoneNumber" })
+        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group ">
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", id = "email", placeholder = "@Email.Com" })
+        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group ">
+        @Html.DropDownListFor(m=>m.Gender, new[] {
+            new SelectListItem() { Text = "Female", Value = "Female" },
+            new SelectListItem() { Text = "Male", Value = "Male" } },
+            "Select Gender", new { @class = "form-control", id="gender" })
+
+        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-10">
+            <input type="submit" value="Create Customer" class="btn btn-primary btn-flat" />
+        </div>
+    </div>
+}
+
+@section ViewSpecificJavascript
+{
+    <script>
+        $(document).ready(function () {
+            $("#new").submit(function (e) {
+                var email = $("#email").val().trim();
+                var fullName = $("#fullname").val().trim();
+                var gender = $("#gender").val();
+                var address = $("#address").val();
+                var phoneNumber = $("#phoneNumber").val().trim();
+
+                $(".error").remove();
+
+                if ($("#new").submit) {
+                    $("form *").removeClass("error-box");
+                }
+
+                if (fullName.length < 1) {
+                    $("#fullname").addClass("error-box");
+                    $("#fullname").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^([A-Za-z]{2,50})+( ([a-zA-Z]{2,50})+)*$/;
+
+                    var validName = regExp.test(fullName);
+                    if (!validName) {
+                        $("#fullname").addClass("error-box");
+                        $('#fullname').after('<span class="error">Enter a valid name</span>');
+                        e.preventDefault();
+                    }
+                }
+
+                if (gender.length < 1) {
+                    $("#gender").addClass("error-box");
+                    $("#gender").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+                }
+
+                if (address.length < 1) {
+                    $("#address").addClass("error-box");
+                    $("#address").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } 
+
+                if (phoneNumber.length < 1) {
+                    $("#phoneNumber").addClass("error-box");
+                    $("#phoneNumber").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^([\d]{9,11})$/;
+
+                    var validNumber = regExp.test(phoneNumber);
+                    if (!validNumber) {
+                        $("#phoneNumber").addClass("error-box");
+                        $('#phoneNumber')
+                            .after(
+                                '<span class="error">Enter a valid PhoneNumber e.g (08033018274 or 018112839)</span>');
+                        e.preventDefault();
+
+                    }
+                }
+
+                if (email.length < 1) {
+                    $("#email").addClass("error-box");
+                    $("#email").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regEx =
+                        /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    var validEmail = regEx.test(email);
+                    if (!validEmail) {
+                        $("#email").addClass("error-box");
+                        $('#email').after('<span class="error">Enter a valid email</span>');
+                        e.preventDefault();
+
+                    }
+                }
+            });
+        })
+    </script>
+}

@@ -1,0 +1,25 @@
+﻿@model CBApplication.Core.Models.BankConfig
+@{
+    ViewBag.Title = "Open Bank";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Are You Sure ?</h2>
+@using (Html.BeginForm("OpenBranch", "BankConfig", FormMethod.Post))
+{
+    <div class="form-horizontal col-md-6">
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-success">
+                <strong>Success!&nbsp;</strong> @ViewBag.Message
+            </div>
+        }
+
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.Id, new { Value = @Session["Id"], Name = "Id" })
+
+        <button type="submit" class="btn btn-success" >Open Bank</button>
+    </div>
+    
+}

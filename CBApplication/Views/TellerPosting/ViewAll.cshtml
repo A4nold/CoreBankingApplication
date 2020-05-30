@@ -1,0 +1,61 @@
+﻿@model IEnumerable<CBApplication.Core.Models.TellerPosting>
+@{
+    ViewBag.Title = "ViewAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<span class="badge"><h4 style="text-align: center">Till Balance &nbsp; @ViewBag.tillBalance</h4></span>
+<span>&nbsp;</span>
+
+<div style="margin-top: 10px">
+
+    <table class="table table-bordered table-hover card-box display" id="table_id">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(a => a.Customer.AccountName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.Customer.AccountNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.DateOfPosting)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.Narration)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+
+                        @Html.DisplayFor(i => item.Customer.AccountName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.Customer.AccountNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.DateOfPosting)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.Amount)
+                    </td>
+                    @*<td>
+                        @{
+                            CBApplication.Core.Models.ApplicationDbContext _contexts = new CBApplication.Core.Models.ApplicationDbContext();
+                            CBApplication.Core.Models.GlAccountManagement glAccounts = _contexts.GlAccount.Find(item.DebitAccountId);
+                        }
+                        @Html.DisplayFor(i => glAccounts.Name)
+                    </td>*@
+                    <td>
+                        @Html.DisplayFor(i => item.Narration)
+                    </td>
+                </tr>
+            }
+        </table>
+
+</div>

@@ -1,0 +1,178 @@
+﻿@model CBApplication.Core.ViewModels.CurrentConfigurationViewModels
+@{
+    ViewBag.Title = "Current Account Configurations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="container-fluid">
+    
+    <div class="row">
+
+        @using (Html.BeginForm("CurrentConfig", "AccountConfiguration", FormMethod.Post,
+            new { @class = "form-horizontal col-md-6 col-md-offset-3 card-box display", id = "current" }))
+        {
+            <h4>@ViewBag.Title</h4>
+            @Html.AntiForgeryToken()
+
+
+            if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+            {
+                if (TempData["Message"] != null)
+                {
+                    <div id="success" class="alert alert-success">
+                        <strong>
+                            Success!
+                        </strong>@TempData["Message"]
+                    </div>
+                }
+            }
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CreditInterestRate)
+                @Html.TextBoxFor(model => model.CreditInterestRate, new { @class = "form-control", step = "any", Name = "Interest", min = 0, Type = "number", id = "CIT" })
+                @Html.ValidationMessageFor(model => model.CreditInterestRate, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MinBalance)
+                @Html.TextBoxFor(model => model.MinBalance, new { @class = "form-control", step = "0.01", id = "minBalance", Name = "Balance", min = 100, Type = "number" })
+                @Html.ValidationMessageFor(model => model.MinBalance, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CommissionOnTurnover)
+                @Html.TextBoxFor(model => model.CommissionOnTurnover, new { @class = "form-control", id = "COT", step = "any", Name = "Cot", min = 0, Type = "number" })
+                @Html.ValidationMessageFor(model => model.CommissionOnTurnover, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.DropDownListFor(model => model.ExpenseGlAccountId,
+                    new SelectList(Model.ExpenseAccount, "Id", "Name"),
+                    "Select Current Expense Account", new {@class = "form-control", Name = "Expense", id="expense"})
+                @Html.ValidationMessageFor(model => model.ExpenseGlAccountId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.DropDownListFor(model => model.CurrentInterestPayableGlId,
+                    new SelectList(Model.PayableAccount, "Id", "Name"),
+                    "Select Savings Payable Account", new {@class = "form-control", Name = "Payable", id="payable"})
+                @Html.ValidationMessageFor(model => model.CurrentInterestPayableGlId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.DropDownListFor(model => model.IncomeGlAccountId,
+                    new SelectList(Model.IncomeAccount, "Id", "Name"),
+                    "Select COT Income Account", new {@class = "form-control", Name = "Income", id="income"})
+                @Html.ValidationMessageFor(model => model.IncomeGlAccountId, "", new { @class = "text-danger" })
+            </div>
+
+
+            <div class="form-group">
+                <input type="hidden" name="Id" value="@Model.Id" />
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="submit" value="SUBMIT" class="btn btn-primary btn-flat" />
+                </div>
+            </div>
+
+
+
+        }
+    </div>
+
+</div>
+
+@section ViewSpecificJavascript
+{
+    <script>
+        $(document).ready(function() {
+            $("#current").submit(function(e) {
+                
+
+                var cit = $("#CIT").val();
+                var balance = $("#minBalance").val();
+                var cot = $("#COT").val();
+                var expense = $("#expense").val();
+                var payable = $("#payable").val();
+                var income = $("#income").val();
+
+                $(".error").remove();
+
+                if ($("#current").submit) {
+                    $("form *").removeClass("error-box");
+                }
+
+                if (cit.length < 1) {
+                    $("#CIT").addClass("error-box");
+                    $("#CIT").after('<span class="error">This Field is Required</span>');
+                } else {
+                    var regExp = /^[(.0-9)]*$/;
+
+                    var validNumber = regExp.test(cit);
+                    if (!validNumber) {
+                        $("#CIT").addClass("error-box");
+                        $('#CIT').after('<span class="error">Enter a valid value</span>');
+                        e.preventDefault();
+
+                    }
+                }
+
+                if (balance.length < 1) {
+                    $("#minBalance").addClass("error-box");
+                    $("#minBalance").after('<span class="error">This Field is Required</span>');
+                } else {
+                    var regExp = /^[(.0-9)]*$/;
+
+                    var validNumber = regExp.test(balance);
+                    if (!validNumber) {
+                        $("#minBalance").addClass("error-box");
+                        $('#minBalance').after('<span class="error">Enter a valid minimum balance</span>');
+                        e.preventDefault();
+
+                    }
+                }
+
+                if (cot.length < 1) {
+                    $("#COT").addClass("error-box");
+                    $("#COT").after('<span class="error">This Field is Required</span>');
+                } else {
+                    var regExp = /^[(.0-9)]*$/;
+
+                    var validNumber = regExp.test(cot);
+                    if (!validNumber) {
+                        $("#COT").addClass("error-box");
+                        $('#COT').after('<span class="error">Enter a valid value</span>');
+                        e.preventDefault();
+
+                    }
+                }
+
+                if (expense.length < 1) {
+                    $("#expense").addClass("error-box");
+                    $("#expense").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+                }
+
+                if (payable.length < 1) {
+                    $("#payable").addClass("error-box");
+                    $("#payable").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+                }
+
+                if (income.length < 1) {
+                    $("#income").addClass("error-box");
+                    $("#income").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+                }
+            });
+        })
+    </script>
+}
+
+
+

@@ -1,0 +1,67 @@
+﻿@using CBApplication.Core.Models
+@model IEnumerable<CBApplication.Core.Models.CustomerAccount>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="margin-top:10px">
+    <table class="table table-bordered table-hover display card-box" id="table_id">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(a => a.AccountName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(a => a.AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(a => a.AccountType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(a => a.Balance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(a => a.branchName)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(i => item.AccountName)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.AccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.AccountType)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.Balance)
+                </td>
+                <td>
+                    @Html.DisplayFor(i => item.branchName)
+                </td>
+                <td>
+                    @if (item.AccountType == AccountType.Current || item.AccountType == AccountType.Savings)
+                    {
+                        @Html.ActionLink(" Perform Transaction", "Save", 
+                            new { id = item.Id },new{@class="fa fa-money action-style", style="color:green"})
+                    }
+
+                </td>
+            </tr>
+        }
+    </table>
+    @section ViewSpecificJavascript{
+        <script>
+            $(document).ready( function () {
+                $('#table_id').DataTable();
+            } );
+        </script>
+    }
+</div>

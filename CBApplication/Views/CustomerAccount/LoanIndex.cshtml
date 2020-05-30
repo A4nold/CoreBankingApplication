@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CBApplication.Core.Models.Loans>
+@{
+    ViewBag.Title = "LoanIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div style="margin-top:10px">
+    <table class="table table-bordered table-hover card-box display" id="table_id">
+        <thead style="border-right: 5px solid #d1d7b5;">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(a => a.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.Amount)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.LoanBalance)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.Narration)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.DurationInMonths)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.EndDate)
+                </th>
+            </tr>
+        </thead>
+        
+
+        @foreach (var item in Model)
+        {
+            <tbody style="border-right: 5px solid #d1d7b5;">
+                <tr>
+                    <td>
+                        @Html.DisplayFor(i => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.LoanBalance)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.Narration)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.DurationInMonths)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.EndDate)
+                    </td>
+                </tr>
+            </tbody>
+            
+        }
+    </table>
+</div>

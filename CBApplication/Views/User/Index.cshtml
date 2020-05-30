@@ -1,0 +1,88 @@
+﻿@model IEnumerable<CBApplication.Core.Models.User>
+
+@{
+    ViewBag.Title = "View All Users";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<p>
+    @Html.ActionLink(" Add new User", "Register",null,new{@class="fa fa-plus btn btn-primary btn-flat"})
+</p>
+<div style="margin-top: 10px">
+    <table class="table table-bordered table-hover card-box display">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Role)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+        </thead>
+        
+
+        @foreach (var item in Model)
+        {
+            <tbody>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Branch_Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+
+                @if (item.Role == "Teller" && item.UserAssigned == false)
+                {
+                    <td>
+                        @Html.ActionLink(" Edit", "Edit", new {id = item.Id},new{@class="fa fa-pencil action-style"})
+                        @Html.ActionLink(" Details", "Details", new {id = item.Id},new{@class="fa fa-eye action-style"})
+                        @Html.ActionLink("Assign Till", "Create", "TellerManagement",null,new{@class="action-style"})
+                    </td>
+
+
+                }
+                else
+                {
+                    <td>
+                        @Html.ActionLink(" Edit", "Edit", new {id = item.Id},new{@class="fa fa-pencil action-style"})
+                        @Html.ActionLink(" Details", "Details", new {id = item.Id}, new{@class="fa fa-eye action-style"})
+                        
+                    </td>
+                }
+            </tr>
+            </tbody>
+           
+        }
+
+    </table>
+</div>

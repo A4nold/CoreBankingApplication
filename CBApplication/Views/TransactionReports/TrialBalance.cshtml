@@ -1,0 +1,54 @@
+﻿@using CBApplication.Core.Models
+@model IEnumerable<CBApplication.Core.ViewModels.TrialBalanceViewModel>
+@{
+    ViewBag.Title = "TrialBalance";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    <table class="table display card-box">
+        <thead class="bg-gray-light">
+        <tr style="background-color: #d1d7b5">
+            <th>Name</th>
+            <th>Category</th>
+            <th>Debits</th>
+            <th>Credits</th>
+            
+        </tr>
+        </thead>
+        
+        <tbody>
+        @foreach (var value in Model)
+        {
+            <tr>
+                <td>@value.AcctName</td>
+                <td>@value.Category</td>
+                @if (value.totalDebit == 0)
+                {
+                    <td></td>
+                }
+                else
+                {
+                    <td>@Math.Round(value.totalDebit,2)</td>
+                }
+
+                @if (value.totalCredit == 0)
+                {
+                    <td></td>
+                }
+                else
+                {
+                    <td>@Math.Round(value.totalCredit,2)</td>
+                }
+
+            </tr>
+        }
+        <tr style="background-color: #d1d7b5">
+            <td>Total</td>
+            <td></td>
+            <td>@Math.Round(ViewBag.DebitTotal,2)</td>
+            <td>@Math.Round(ViewBag.CreditTotal,2)</td>
+        </tr>
+       </tbody>
+    </table>
+</div>

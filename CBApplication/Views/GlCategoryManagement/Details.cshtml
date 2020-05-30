@@ -1,0 +1,35 @@
+﻿@model CBApplication.Core.Models.GlCategoryManagement
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-box display">
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.MainAccountCategoryId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.MainAccountCategoryId)
+        </dd>
+
+
+    </dl>
+
+</div>
+<p style="margin-top: 30px;"> 
+    @Html.ActionLink(" Edit", "Edit", new { id = Model.Id },new{@class="fa fa-pencil btn btn-primary btn-flat"})
+    @Html.ActionLink(" Back to List", "Index",null,new{@class="fa fa-arrow-left btn btn-primary btn-flat"})
+</p>

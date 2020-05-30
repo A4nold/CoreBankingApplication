@@ -1,0 +1,26 @@
+﻿@model CBApplication.Core.Models.User
+
+@{
+    ViewBag.Title = "title";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (Session["Name"] != null)
+{
+    <h1>Welcome @Session["Name"]</h1>
+
+    @*<div>
+        @Html.ActionLink("Logout","Logout")
+    </div>*@
+}
+
+@if ((string)Session["Role"] == "Admin")
+{
+    <h1>You are an Admin</h1>
+}
+
+@if ((string)Session["Role"] == "Teller")
+{
+    <h1>You are a Teller</h1>
+}

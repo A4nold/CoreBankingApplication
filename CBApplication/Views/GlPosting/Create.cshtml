@@ -1,0 +1,167 @@
+﻿@model CBApplication.Core.ViewModels.GlPostingViewModels
+@{
+    ViewBag.Title = "GlPosting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    CBApplication.Core.Models.ApplicationDbContext _context = new CBApplication.Core.Models.ApplicationDbContext();
+
+    var bankConfigTable = _context.BankConfigs.ToList();
+    var businessConfig = _context.BankConfigs.FirstOrDefault(c => c.IsOpen == true);
+}
+
+@{
+    if (businessConfig != null)
+    {
+        using (Html.BeginForm("Create", "GlPosting", FormMethod.Post, 
+            new { @class = "form-horizontal col-md-6 col-md-offset-3 card-box display", id = "create" }))
+        {
+            <h4>@ViewBag.Title</h4>
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal col-md-6">
+                @if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-success">
+                        <strong>Success!&nbsp;</strong> @ViewBag.Message
+                    </div>
+                }
+            </div>
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.TextBoxFor(model => model.GlPosting.Amount, new { @class = "form-control",
+                    Name = "Amount", step = "any", min = 1, Type = "number", id="amount",placeholder="Enter Amount" })
+                @Html.ValidationMessage("", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.DropDownListFor(model => model.CreditAccountId,
+                    new SelectList(Model.CreditAccount, "Id", "Name"),
+                    "Select Account to Credit", new {@class = "form-control", Name = "Credit", id="credit" })
+                @Html.ValidationMessageFor(model => model.CreditAccountId, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.TextAreaFor(model => model.GlPosting.DebitAccountNarration, new { @class = "form-control", Name = "CreditNarration"
+                    ,id="creditNarration",placeholder="Credit Narration" })
+                @Html.ValidationMessageFor(model => model.GlPosting.DebitAccountNarration, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.DropDownListFor(model => model.DebitAccountId,
+                    new SelectList(Model.DebitAccount, "Id", "Name"),
+                    "Select Account to Debit", new {@class = "form-control", Name = "Debit",id="debit" })
+                @Html.ValidationMessage("AccountEqual", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.TextAreaFor(model => model.GlPosting.DebitAccountNarration, new
+                {
+                    @class = "form-control", Name = "DebitNarration",
+                    id="debitNarration",placeholder="Debit Narration"
+                })
+                @Html.ValidationMessageFor(model => model.GlPosting.DebitAccountNarration, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.HiddenFor(model => model.GlPosting.UserId, new { Value = @Session["Id"], Name = "Id" })
+
+
+            <div class="form-group">
+                <div class="">
+                    <input type="submit" value="SUBMIT" class="btn btn-primary btn-flat" />
+                </div>
+            </div>
+
+
+        }
+    }
+    else
+    {
+        <p style="color: #d1d7b5;">Open Business First</p>
+    }
+}
+
+@section ViewSpecificJavascript
+{
+    <script>
+        $(document).ready(function () {
+            $("#create").submit(function (e) {
+                var amount = $("#amount").val();
+                var credit = $("#credit").val();
+                var debit = $("#debit").val();
+                var creditNarration = $("#creditNarration").val();
+
+                var debitNarration = $("#debitNarration").val();
+
+                $(".error").remove();
+
+                if ($("#create").submit) {
+                    $("form *").removeClass("error-box");
+                }
+
+                if (amount.length < 1) {
+                    $("#amount").addClass("error-box");
+                    $("#amount").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[0-9.]*$/;
+
+                    var validName = regExp.test(amount);
+                    if (!validName) {
+                        $("#amount").addClass("error-box");
+                        $('#amount').after('<span class="error">Enter a valid amount</span>');
+                        e.preventDefault();
+                    }
+                }
+
+                if (creditNarration.length < 1) {
+                    $("#creditNarration").addClass("error-box");
+                    $("#creditNarration").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[A-Za-z0-9.]+( [a-zA-Z0-9.]+)*$/;
+
+                    var validName = regExp.test(creditNarration);
+                    if (!validName) {
+                        $("#creditNarration").addClass("error-box");
+                        $('#creditNarration').after('<span class="error">No special symbols</span>');
+                        e.preventDefault();
+                    }
+                }
+
+                if (debitNarration.length < 1) {
+                    $("#debitNarration").addClass("error-box");
+                    $("#debitNarration").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[A-Za-z0-9.]+( [a-zA-Z0-9.]+)*$/;
+
+                    var validName = regExp.test(debitNarration);
+                    if (!validName) {
+                        $("#debitNarration").addClass("error-box");
+                        $('#debitNarration').after('<span class="error">No special symbols</span>');
+                        e.preventDefault();
+                    }
+                }
+
+
+                if (credit.length < 1) {
+                    $("#credit").addClass("error-box");
+                    $("#credit").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                }
+
+                if (debit.length < 1) {
+                    $("#debit").addClass("error-box");
+                    $("#debit").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                }
+            });
+        })
+    </script>
+}
+

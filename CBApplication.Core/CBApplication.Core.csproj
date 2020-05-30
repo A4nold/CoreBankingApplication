@@ -1,0 +1,561 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{477215A5-25A0-4D12-ADA2-57F83953420D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CBApplication.Core</RootNamespace>
+    <AssemblyName>CBApplication.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Migrations\201909031113138_newMigration.cs" />
+    <Compile Include="Migrations\201909031113138_newMigration.Designer.cs">
+      <DependentUpon>201909031113138_newMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909031124014_editbranch.cs" />
+    <Compile Include="Migrations\201909031124014_editbranch.Designer.cs">
+      <DependentUpon>201909031124014_editbranch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909031125143_editannotation.cs" />
+    <Compile Include="Migrations\201909031125143_editannotation.Designer.cs">
+      <DependentUpon>201909031125143_editannotation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909031126104_editbranch1.cs" />
+    <Compile Include="Migrations\201909031126104_editbranch1.Designer.cs">
+      <DependentUpon>201909031126104_editbranch1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909041231430_changeBranch.cs" />
+    <Compile Include="Migrations\201909041231430_changeBranch.Designer.cs">
+      <DependentUpon>201909041231430_changeBranch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909041436016_GlAccountManagemet.cs" />
+    <Compile Include="Migrations\201909041436016_GlAccountManagemet.Designer.cs">
+      <DependentUpon>201909041436016_GlAccountManagemet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909041437442_GlAccountManagemet1.cs" />
+    <Compile Include="Migrations\201909041437442_GlAccountManagemet1.Designer.cs">
+      <DependentUpon>201909041437442_GlAccountManagemet1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909050657386_GlCategory.cs" />
+    <Compile Include="Migrations\201909050657386_GlCategory.Designer.cs">
+      <DependentUpon>201909050657386_GlCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909050928536_mainAccountCategory.cs" />
+    <Compile Include="Migrations\201909050928536_mainAccountCategory.Designer.cs">
+      <DependentUpon>201909050928536_mainAccountCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909050930094_populateMainAccountCategory.cs" />
+    <Compile Include="Migrations\201909050930094_populateMainAccountCategory.Designer.cs">
+      <DependentUpon>201909050930094_populateMainAccountCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909050957024_GlCategory1.cs" />
+    <Compile Include="Migrations\201909050957024_GlCategory1.Designer.cs">
+      <DependentUpon>201909050957024_GlCategory1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909051044308_updateGlCategory.cs" />
+    <Compile Include="Migrations\201909051044308_updateGlCategory.Designer.cs">
+      <DependentUpon>201909051044308_updateGlCategory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909051632103_GlAccount.cs" />
+    <Compile Include="Migrations\201909051632103_GlAccount.Designer.cs">
+      <DependentUpon>201909051632103_GlAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909051723576_GlAccount1.cs" />
+    <Compile Include="Migrations\201909051723576_GlAccount1.Designer.cs">
+      <DependentUpon>201909051723576_GlAccount1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909051821496_GlAccount2.cs" />
+    <Compile Include="Migrations\201909051821496_GlAccount2.Designer.cs">
+      <DependentUpon>201909051821496_GlAccount2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909061037356_GlAccount3.cs" />
+    <Compile Include="Migrations\201909061037356_GlAccount3.Designer.cs">
+      <DependentUpon>201909061037356_GlAccount3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909090833543_tellerManagement.cs" />
+    <Compile Include="Migrations\201909090833543_tellerManagement.Designer.cs">
+      <DependentUpon>201909090833543_tellerManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909090849309_isAssignedtoUsers.cs" />
+    <Compile Include="Migrations\201909090849309_isAssignedtoUsers.Designer.cs">
+      <DependentUpon>201909090849309_isAssignedtoUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909090902571_glaccountupdate.cs" />
+    <Compile Include="Migrations\201909090902571_glaccountupdate.Designer.cs">
+      <DependentUpon>201909090902571_glaccountupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909091110577_tellerManagement1.cs" />
+    <Compile Include="Migrations\201909091110577_tellerManagement1.Designer.cs">
+      <DependentUpon>201909091110577_tellerManagement1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909091525565_customerAccount.cs" />
+    <Compile Include="Migrations\201909091525565_customerAccount.Designer.cs">
+      <DependentUpon>201909091525565_customerAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909091552569_customerAccount1.cs" />
+    <Compile Include="Migrations\201909091552569_customerAccount1.Designer.cs">
+      <DependentUpon>201909091552569_customerAccount1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909091623253_customerAccount2.cs" />
+    <Compile Include="Migrations\201909091623253_customerAccount2.Designer.cs">
+      <DependentUpon>201909091623253_customerAccount2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909100946163_customerAccount3.cs" />
+    <Compile Include="Migrations\201909100946163_customerAccount3.Designer.cs">
+      <DependentUpon>201909100946163_customerAccount3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909101426261_addCustomer.cs" />
+    <Compile Include="Migrations\201909101426261_addCustomer.Designer.cs">
+      <DependentUpon>201909101426261_addCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909101455277_addCustomer1.cs" />
+    <Compile Include="Migrations\201909101455277_addCustomer1.Designer.cs">
+      <DependentUpon>201909101455277_addCustomer1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909101556161_addcustomerAccount.cs" />
+    <Compile Include="Migrations\201909101556161_addcustomerAccount.Designer.cs">
+      <DependentUpon>201909101556161_addcustomerAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909110727244_anymigration.cs" />
+    <Compile Include="Migrations\201909110727244_anymigration.Designer.cs">
+      <DependentUpon>201909110727244_anymigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909110854410_savingsAccount.cs" />
+    <Compile Include="Migrations\201909110854410_savingsAccount.Designer.cs">
+      <DependentUpon>201909110854410_savingsAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909110855236_savingsAccount1.cs" />
+    <Compile Include="Migrations\201909110855236_savingsAccount1.Designer.cs">
+      <DependentUpon>201909110855236_savingsAccount1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909110857172_savingsAccount2.cs" />
+    <Compile Include="Migrations\201909110857172_savingsAccount2.Designer.cs">
+      <DependentUpon>201909110857172_savingsAccount2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909111239438_savingsAccount3.cs" />
+    <Compile Include="Migrations\201909111239438_savingsAccount3.Designer.cs">
+      <DependentUpon>201909111239438_savingsAccount3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909121101348_savingsAccount4.cs" />
+    <Compile Include="Migrations\201909121101348_savingsAccount4.Designer.cs">
+      <DependentUpon>201909121101348_savingsAccount4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909121143006_currentAccount.cs" />
+    <Compile Include="Migrations\201909121143006_currentAccount.Designer.cs">
+      <DependentUpon>201909121143006_currentAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909121145276_savingsAccount5.cs" />
+    <Compile Include="Migrations\201909121145276_savingsAccount5.Designer.cs">
+      <DependentUpon>201909121145276_savingsAccount5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909121318508_currentAccount1.cs" />
+    <Compile Include="Migrations\201909121318508_currentAccount1.Designer.cs">
+      <DependentUpon>201909121318508_currentAccount1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909121421465_anymigration1.cs" />
+    <Compile Include="Migrations\201909121421465_anymigration1.Designer.cs">
+      <DependentUpon>201909121421465_anymigration1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909130832482_loanConfig.cs" />
+    <Compile Include="Migrations\201909130832482_loanConfig.Designer.cs">
+      <DependentUpon>201909130832482_loanConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909130926038_loanConfig1.cs" />
+    <Compile Include="Migrations\201909130926038_loanConfig1.Designer.cs">
+      <DependentUpon>201909130926038_loanConfig1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909160735578_dropglposting.cs" />
+    <Compile Include="Migrations\201909160735578_dropglposting.Designer.cs">
+      <DependentUpon>201909160735578_dropglposting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909160740000_glposting.cs" />
+    <Compile Include="Migrations\201909160740000_glposting.Designer.cs">
+      <DependentUpon>201909160740000_glposting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909161238456_bankConfig.cs" />
+    <Compile Include="Migrations\201909161238456_bankConfig.Designer.cs">
+      <DependentUpon>201909161238456_bankConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909161253279_tellerPosting.cs" />
+    <Compile Include="Migrations\201909161253279_tellerPosting.Designer.cs">
+      <DependentUpon>201909161253279_tellerPosting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909161437579_tellerPosting1.cs" />
+    <Compile Include="Migrations\201909161437579_tellerPosting1.Designer.cs">
+      <DependentUpon>201909161437579_tellerPosting1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909170954384_CustomerAccountLien.cs" />
+    <Compile Include="Migrations\201909170954384_CustomerAccountLien.Designer.cs">
+      <DependentUpon>201909170954384_CustomerAccountLien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909171207225_COTPost.cs" />
+    <Compile Include="Migrations\201909171207225_COTPost.Designer.cs">
+      <DependentUpon>201909171207225_COTPost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909180746128_COTPost1.cs" />
+    <Compile Include="Migrations\201909180746128_COTPost1.Designer.cs">
+      <DependentUpon>201909180746128_COTPost1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909181202164_tellerPosting2.cs" />
+    <Compile Include="Migrations\201909181202164_tellerPosting2.Designer.cs">
+      <DependentUpon>201909181202164_tellerPosting2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909191146051_bankConfigEdit.cs" />
+    <Compile Include="Migrations\201909191146051_bankConfigEdit.Designer.cs">
+      <DependentUpon>201909191146051_bankConfigEdit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909191421543_loans.cs" />
+    <Compile Include="Migrations\201909191421543_loans.Designer.cs">
+      <DependentUpon>201909191421543_loans.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909191701586_loanmig.cs" />
+    <Compile Include="Migrations\201909191701586_loanmig.Designer.cs">
+      <DependentUpon>201909191701586_loanmig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909191957483_loanMigration.cs" />
+    <Compile Include="Migrations\201909191957483_loanMigration.Designer.cs">
+      <DependentUpon>201909191957483_loanMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909192114302_loanMigration1.cs" />
+    <Compile Include="Migrations\201909192114302_loanMigration1.Designer.cs">
+      <DependentUpon>201909192114302_loanMigration1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909200959494_loanMigration2.cs" />
+    <Compile Include="Migrations\201909200959494_loanMigration2.Designer.cs">
+      <DependentUpon>201909200959494_loanMigration2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909201106526_loanMigration3.cs" />
+    <Compile Include="Migrations\201909201106526_loanMigration3.Designer.cs">
+      <DependentUpon>201909201106526_loanMigration3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909201123534_loanMigration4.cs" />
+    <Compile Include="Migrations\201909201123534_loanMigration4.Designer.cs">
+      <DependentUpon>201909201123534_loanMigration4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909230926177_savingsconfig.cs" />
+    <Compile Include="Migrations\201909230926177_savingsconfig.Designer.cs">
+      <DependentUpon>201909230926177_savingsconfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909231051006_glaccount23.cs" />
+    <Compile Include="Migrations\201909231051006_glaccount23.Designer.cs">
+      <DependentUpon>201909231051006_glaccount23.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909231135490_loan23.cs" />
+    <Compile Include="Migrations\201909231135490_loan23.Designer.cs">
+      <DependentUpon>201909231135490_loan23.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909231148537_loan24.cs" />
+    <Compile Include="Migrations\201909231148537_loan24.Designer.cs">
+      <DependentUpon>201909231148537_loan24.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909231606034_loan25.cs" />
+    <Compile Include="Migrations\201909231606034_loan25.Designer.cs">
+      <DependentUpon>201909231606034_loan25.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909240005067_currentconfig56.cs" />
+    <Compile Include="Migrations\201909240005067_currentconfig56.Designer.cs">
+      <DependentUpon>201909240005067_currentconfig56.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909241843275_transactionLog.cs" />
+    <Compile Include="Migrations\201909241843275_transactionLog.Designer.cs">
+      <DependentUpon>201909241843275_transactionLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909241903080_transactionLog12.cs" />
+    <Compile Include="Migrations\201909241903080_transactionLog12.Designer.cs">
+      <DependentUpon>201909241903080_transactionLog12.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909241956403_transactionLog14.cs" />
+    <Compile Include="Migrations\201909241956403_transactionLog14.Designer.cs">
+      <DependentUpon>201909241956403_transactionLog14.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909251117510_LogTransaction.cs" />
+    <Compile Include="Migrations\201909251117510_LogTransaction.Designer.cs">
+      <DependentUpon>201909251117510_LogTransaction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909261148358_decimalprecisionupdate.cs" />
+    <Compile Include="Migrations\201909261148358_decimalprecisionupdate.Designer.cs">
+      <DependentUpon>201909261148358_decimalprecisionupdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\BankConfig.cs" />
+    <Compile Include="Models\Branch.cs" />
+    <Compile Include="Models\COTPost.cs" />
+    <Compile Include="Models\CurrentConfig.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\CustomerAccount.cs" />
+    <Compile Include="Models\GlAccountManagement.cs" />
+    <Compile Include="Models\GlCategoryManagement.cs" />
+    <Compile Include="Models\GlPosting.cs" />
+    <Compile Include="Models\LoanConfig.cs" />
+    <Compile Include="Models\Loans.cs" />
+    <Compile Include="Models\MainAccountCategory.cs" />
+    <Compile Include="Models\SavingsConfig.cs" />
+    <Compile Include="Models\TellerManagement.cs" />
+    <Compile Include="Models\TellerPosting.cs" />
+    <Compile Include="Models\TransactionsLog.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\BalanceSheetViewModels.cs" />
+    <Compile Include="ViewModels\CurrentConfigurationViewModels.cs" />
+    <Compile Include="ViewModels\CustomerAccountViewModels.cs" />
+    <Compile Include="ViewModels\GlAccountManagementViewModels.cs" />
+    <Compile Include="ViewModels\GlCategoryManagementViewModels.cs" />
+    <Compile Include="ViewModels\GlPostingViewModels.cs" />
+    <Compile Include="ViewModels\LoanConfigurationViewModels.cs" />
+    <Compile Include="ViewModels\NewUserViewModel.cs" />
+    <Compile Include="ViewModels\ProfitandLossViewModels.cs" />
+    <Compile Include="ViewModels\SavingsConfigurationViewModels.cs" />
+    <Compile Include="ViewModels\TellerManagementViewModels.cs" />
+    <Compile Include="ViewModels\TrialBalanceViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201909031113138_newMigration.resx">
+      <DependentUpon>201909031113138_newMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909031124014_editbranch.resx">
+      <DependentUpon>201909031124014_editbranch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909031125143_editannotation.resx">
+      <DependentUpon>201909031125143_editannotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909031126104_editbranch1.resx">
+      <DependentUpon>201909031126104_editbranch1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909041231430_changeBranch.resx">
+      <DependentUpon>201909041231430_changeBranch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909041436016_GlAccountManagemet.resx">
+      <DependentUpon>201909041436016_GlAccountManagemet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909041437442_GlAccountManagemet1.resx">
+      <DependentUpon>201909041437442_GlAccountManagemet1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909050657386_GlCategory.resx">
+      <DependentUpon>201909050657386_GlCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909050928536_mainAccountCategory.resx">
+      <DependentUpon>201909050928536_mainAccountCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909050930094_populateMainAccountCategory.resx">
+      <DependentUpon>201909050930094_populateMainAccountCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909050957024_GlCategory1.resx">
+      <DependentUpon>201909050957024_GlCategory1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909051044308_updateGlCategory.resx">
+      <DependentUpon>201909051044308_updateGlCategory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909051632103_GlAccount.resx">
+      <DependentUpon>201909051632103_GlAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909051723576_GlAccount1.resx">
+      <DependentUpon>201909051723576_GlAccount1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909051821496_GlAccount2.resx">
+      <DependentUpon>201909051821496_GlAccount2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909061037356_GlAccount3.resx">
+      <DependentUpon>201909061037356_GlAccount3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909090833543_tellerManagement.resx">
+      <DependentUpon>201909090833543_tellerManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909090849309_isAssignedtoUsers.resx">
+      <DependentUpon>201909090849309_isAssignedtoUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909090902571_glaccountupdate.resx">
+      <DependentUpon>201909090902571_glaccountupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909091110577_tellerManagement1.resx">
+      <DependentUpon>201909091110577_tellerManagement1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909091525565_customerAccount.resx">
+      <DependentUpon>201909091525565_customerAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909091552569_customerAccount1.resx">
+      <DependentUpon>201909091552569_customerAccount1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909091623253_customerAccount2.resx">
+      <DependentUpon>201909091623253_customerAccount2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909100946163_customerAccount3.resx">
+      <DependentUpon>201909100946163_customerAccount3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909101426261_addCustomer.resx">
+      <DependentUpon>201909101426261_addCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909101455277_addCustomer1.resx">
+      <DependentUpon>201909101455277_addCustomer1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909101556161_addcustomerAccount.resx">
+      <DependentUpon>201909101556161_addcustomerAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909110727244_anymigration.resx">
+      <DependentUpon>201909110727244_anymigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909110854410_savingsAccount.resx">
+      <DependentUpon>201909110854410_savingsAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909110855236_savingsAccount1.resx">
+      <DependentUpon>201909110855236_savingsAccount1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909110857172_savingsAccount2.resx">
+      <DependentUpon>201909110857172_savingsAccount2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909111239438_savingsAccount3.resx">
+      <DependentUpon>201909111239438_savingsAccount3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909121101348_savingsAccount4.resx">
+      <DependentUpon>201909121101348_savingsAccount4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909121143006_currentAccount.resx">
+      <DependentUpon>201909121143006_currentAccount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909121145276_savingsAccount5.resx">
+      <DependentUpon>201909121145276_savingsAccount5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909121318508_currentAccount1.resx">
+      <DependentUpon>201909121318508_currentAccount1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909121421465_anymigration1.resx">
+      <DependentUpon>201909121421465_anymigration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909130832482_loanConfig.resx">
+      <DependentUpon>201909130832482_loanConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909130926038_loanConfig1.resx">
+      <DependentUpon>201909130926038_loanConfig1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909160735578_dropglposting.resx">
+      <DependentUpon>201909160735578_dropglposting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909160740000_glposting.resx">
+      <DependentUpon>201909160740000_glposting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909161238456_bankConfig.resx">
+      <DependentUpon>201909161238456_bankConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909161253279_tellerPosting.resx">
+      <DependentUpon>201909161253279_tellerPosting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909161437579_tellerPosting1.resx">
+      <DependentUpon>201909161437579_tellerPosting1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909170954384_CustomerAccountLien.resx">
+      <DependentUpon>201909170954384_CustomerAccountLien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909171207225_COTPost.resx">
+      <DependentUpon>201909171207225_COTPost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909180746128_COTPost1.resx">
+      <DependentUpon>201909180746128_COTPost1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909181202164_tellerPosting2.resx">
+      <DependentUpon>201909181202164_tellerPosting2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909191146051_bankConfigEdit.resx">
+      <DependentUpon>201909191146051_bankConfigEdit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909191421543_loans.resx">
+      <DependentUpon>201909191421543_loans.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909191701586_loanmig.resx">
+      <DependentUpon>201909191701586_loanmig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909191957483_loanMigration.resx">
+      <DependentUpon>201909191957483_loanMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909192114302_loanMigration1.resx">
+      <DependentUpon>201909192114302_loanMigration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909200959494_loanMigration2.resx">
+      <DependentUpon>201909200959494_loanMigration2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909201106526_loanMigration3.resx">
+      <DependentUpon>201909201106526_loanMigration3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909201123534_loanMigration4.resx">
+      <DependentUpon>201909201123534_loanMigration4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909230926177_savingsconfig.resx">
+      <DependentUpon>201909230926177_savingsconfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909231051006_glaccount23.resx">
+      <DependentUpon>201909231051006_glaccount23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909231135490_loan23.resx">
+      <DependentUpon>201909231135490_loan23.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909231148537_loan24.resx">
+      <DependentUpon>201909231148537_loan24.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909231606034_loan25.resx">
+      <DependentUpon>201909231606034_loan25.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909240005067_currentconfig56.resx">
+      <DependentUpon>201909240005067_currentconfig56.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909241843275_transactionLog.resx">
+      <DependentUpon>201909241843275_transactionLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909241903080_transactionLog12.resx">
+      <DependentUpon>201909241903080_transactionLog12.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909241956403_transactionLog14.resx">
+      <DependentUpon>201909241956403_transactionLog14.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909251117510_LogTransaction.resx">
+      <DependentUpon>201909251117510_LogTransaction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909261148358_decimalprecisionupdate.resx">
+      <DependentUpon>201909261148358_decimalprecisionupdate.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

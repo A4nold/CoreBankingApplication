@@ -1,0 +1,71 @@
+﻿@model CBApplication.Core.ViewModels.CustomerAccountViewModels
+@{
+    ViewBag.Title = "Lien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Lien", "CustomerAccount", FormMethod.Post, new { @class = "form-horizontal col-md-5 col-md-offset-4 card-box display", id = "liens" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="">
+
+        @if (ViewBag.Message != null)
+        {
+            <div class="alert alert-success">
+                <strong>Success!&nbsp;</strong> @ViewBag.Message
+            </div>
+        }
+    </div>
+        @Html.HiddenFor(model => model.CustomerAccount.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerAccount.CurrentLien)
+            @Html.TextBoxFor(model => model.CustomerAccount.CurrentLien, new { @class = "form-control", Name = "Lien", step = "any", min = 0, Type = "number", id = "lien" })
+            @Html.ValidationMessage("", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <div class="">
+                <input type="submit" value="SUBMIT" class="btn btn-primary btn-flat" />
+            </div>
+        </div>
+
+    
+
+}
+@section ViewSpecificJavascript
+{
+    <script>
+        $(document).ready(function() {
+            $("#liens").submit(function(e) {
+                var lien = $("#lien").val();
+                
+
+                $(".error").remove();
+
+                if ($("#liens").submit) {
+                    $("form *").removeClass("error-box");
+                }
+
+                if (lien.length < 1) {
+                    $("#lien").addClass("error-box");
+                    $("#lien").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[0-9.]/;
+
+                    var validName = regExp.test(lien);
+                    if (!validName) {
+                        $("#lien").addClass("error-box");
+                        $('#lien').after('<span class="error">Enter a valid amount</span>');
+                        e.preventDefault();
+                    }
+                }
+
+            });
+        })
+    </script>
+}
+

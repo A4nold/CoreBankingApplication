@@ -1,0 +1,185 @@
+﻿@using WebHelpers.Mvc5
+<aside class="main-sidebar">
+    <section class="sidebar">
+        @* BEGIN Search *@
+        @*<form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>*@
+        @* END Search *@
+        @* BEGIN Menu *@
+        <ul class="sidebar-menu" data-widget="tree">
+            @*<li class="header">Dashboard</li>*@
+            @*<li class="@Url.IsLinkActive("Index", "Home")">
+            <a href="@Url.Action("Index", "Home")"><i class="fa fa-link"></i> <span>Home</span></a>
+        </li>*@
+            @*<li class="@Url.IsLinkActive("Index", "Home")">
+            <a href="@Url.Action("Index", "Home")"><i class="fa fa-link"></i> <span>Home</span></a>
+        </li>*@
+            @*<li class="@Url.IsLinkActive("AnotherLink", "Home")">
+            <a href="@Url.Action("AnotherLink", "Home")"><i class="fa fa-link"></i> <span>Another Link</span></a>
+        </li>*@
+
+            @if (((string)Session["role"] == "Teller"))
+            {
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>Customer Management</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("New", "Customer")">Add new Customer</a></li>
+                        <li><a href="@Url.Action("Index", "Customer")">View All Customers</a></li>
+                        @*<li><a href="@Url.Action("Index", "CustomerAccount")">Manage Accounts</a></li>*@
+                    </ul>
+
+                </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span> Post Teller@*Management*@</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Index", "TellerPosting")">View Accounts</a></li>
+                        <li><a href="@Url.Action("ViewAll", "TellerPosting")">View Posts</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a class="fa fa-bitcoin" href="@Url.Action("BuyCash", "TellerPosting")">&nbsp;&nbsp;&nbsp;&nbsp;Buy Cash</a>
+                </li>
+                <li><a class="fa fa-dollar" href="@Url.Action("SellCash", "TellerPosting")">&nbsp;&nbsp;&nbsp;&nbsp;Sell Cash</a></li>
+
+                <li><a class="fa fa-user" href="@Url.Action("ChangePassword", "User")">&nbsp;&nbsp;&nbsp;&nbsp;Change User Password</a></li>
+
+            }
+            @if ((string)Session["role"] == "Admin")
+            {
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>Customer Management</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("New", "Customer")">Add new Customer</a></li>
+                        <li><a href="@Url.Action("Index", "Customer")">View All Customers</a></li>
+                        <li><a href="@Url.Action("Index", "CustomerAccount")">Manage Accounts</a></li>
+                        <li><a href="@Url.Action("LoanIndex", "CustomerAccount")">View Loans</a></li>
+                    </ul>
+
+                </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>User @*Management*@</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Register", "User")">Add new User</a></li>
+                        <li><a href="@Url.Action("Index", "User")">View All Users</a></li>
+                        <li><a href="@Url.Action("ChangePassword", "User")">Change User Password</a></li>
+                    </ul>
+                </li>
+
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>Add Till @*Management*@</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Create", "TellerManagement")">Assign Till</a></li>
+                        <li><a href="@Url.Action("Index", "TellerManagement")">View All Till Accounts</a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>GL Category @*Management*@</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Create", "GlCategoryManagement")">Add new GL Category</a></li>
+                        <li><a href="@Url.Action("Index", "GlCategoryManagement")">View Existing GL Categories</a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>GL Account @*Management*@</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Create", "GlAccountManagement")">Add new GL account</a></li>
+                        <li><a href="@Url.Action("Index", "GlAccountManagement")">View Existing GL account</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>GL Posting @*Management*@</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("Create", "GlPosting")">Add new Post</a></li>
+                        <li><a href="@Url.Action("Index", "GlPosting")">View All Posts</a></li>
+                    </ul>
+                </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>Account Configurations</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("SavingsConfig", "AccountConfiguration")">Savings</a></li>
+                        <li><a href="@Url.Action("CurrentConfig", "AccountConfiguration")">Current</a></li>
+                        <li><a href="@Url.Action("LoanConfig", "AccountConfiguration")">Loan</a></li>
+                    </ul>
+
+                </li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-link"></i> <span>Financial Reports</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="@Url.Action("BalanceSheet", "TransactionReports")">BalanceSheet</a></li>
+                        <li><a href="@Url.Action("ProfitAndLoss", "TransactionReports")">Profit And Loss</a></li>
+                        <li><a href="@Url.Action("TrialBalance", "TransactionReports")">Trial Balance</a></li>
+                    </ul>
+
+                </li>
+            }
+        </ul>
+        @* END Menu *@
+    </section>
+</aside>

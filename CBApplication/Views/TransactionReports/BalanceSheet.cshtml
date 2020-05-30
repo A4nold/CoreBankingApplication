@@ -1,0 +1,97 @@
+﻿@model CBApplication.Core.ViewModels.BalanceSheetViewModels
+@{
+    ViewBag.Title = "BalanceSheet Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table display card-box">
+                <h4 style="text-align: center;color:white">Assets</h4>
+                <thead class="bg-gray-light">
+                    <tr>
+                        <th class="col-md-9">Asset Name</th>
+                        <th class="col-md-3">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var value in Model.AssetsGL)
+                    {
+                        <tr>
+                            <td>@value.Name</td>
+                            <td>@Math.Round(value.AccountBalance, 2)</td>
+                        </tr>
+
+                    }
+                    <tr style="background-color: #d1d7b5">
+                        <td>Total</td>
+                        <td>@Model.AssetSum</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-md-6" style="padding-top: 110px;">
+            <table class="table card-box display">
+                <h4 style="text-align: center; color: white;">Capitals</h4>
+                <thead class="bg-gray-light">
+                    <tr>
+                        <th class="col-md-9">Capital Name</th>
+                        <th class="col-md-3">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var value in Model.CapitalGl)
+                    {
+                        <tr>
+                            <td>@value.Name</td>
+                            <td>@Math.Round(value.AccountBalance, 2)</td>
+                        </tr>
+
+                    }
+                    <tr style="background-color: #d1d7b5">
+                        <td>Total</td>
+                        <td>@Model.CapitalSum</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="col-md-6 col-md-offset-3">
+            
+            <table class="table card-box display">
+                <h4 style="text-align: center; color: white;">Liabilities</h4>
+                <thead class="bg-gray-light">
+                    <tr>
+                        <th class="col-md-9">Liability Name</th>
+                        <th class="col-md-3">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var value in Model.LiabiliyGl)
+                    {
+                        <tr>
+                            <td>@value.Name</td>
+                            <td>@Math.Round(value.AccountBalance, 2)</td>
+                        </tr>
+
+                    }
+                    <tr style="background-color: #d1d7b5">
+                        <td>Total</td>
+                        <td>@Model.LiabilitySum</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="col-md-12">
+            <div class="card-box display" style="background-color: #5f8170;">
+                <h2 style="color: #d1d7b5">Balanced Total of Assets and Capital Liability Sum</h2>
+                <h3 style="color: #d1d7b5">Asset Balance: @Model.AssetSum</h3>
+                <h3 style="color: #d1d7b5">CL Sum: @Model.CLSum</h3>
+            </div>
+        </div>    
+        
+    </div>
+</div>

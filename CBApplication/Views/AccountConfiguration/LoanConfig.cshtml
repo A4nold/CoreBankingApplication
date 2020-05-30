@@ -1,0 +1,107 @@
+﻿@model CBApplication.Core.ViewModels.LoanConfigurationViewModels
+@{
+    ViewBag.Title = "Loans Configurations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("SaveLoanConfig", "AccountConfiguration", FormMethod.Post,
+    new { @class = "form-horizontal col-md-6 col-md-offset-3 card-box display",  id = "loan" }))
+{
+    <h4>@ViewBag.Title</h4>
+    @Html.AntiForgeryToken()
+
+    <div class="">
+        @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+        {
+            if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success">
+                    <strong>
+                        Success!
+                    </strong>@ViewBag.Message
+                </div>
+            }
+        }
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DebitInterestRate)
+            @Html.TextBoxFor(model => model.DebitInterestRate, new { @class = "form-control", id = "debit", step = "any", Name = "Interest", min = 0, Type = "number" })
+            @Html.ValidationMessageFor(model => model.DebitInterestRate, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="form-group">
+            @Html.DropDownListFor(model => model.IncomeGlAccountId,
+                new SelectList(Model.IncomeAccount, "Id", "Name"),
+                "Select Loan Income Account", new { @class = "form-control", Name = "Income",id="income" })
+            @Html.ValidationMessageFor(model => model.IncomeGlAccountId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.DropDownListFor(model => model.LoanInterestReceivableGlId,
+                new SelectList(Model.RecievableIncomeAccount, "Id", "Name"),
+                "Select Loan receivable Income Account", new { @class = "form-control", Name = "Receive",id="receive" })
+            @Html.ValidationMessageFor(model => model.LoanInterestReceivableGlId, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="form-group">
+            <input type="hidden" name="Id" value="@Model.Id" />
+        </div>
+
+    </div>
+    <div class="form-group">
+        <div class="">
+            <input type="submit" value="SUBMIT" class="btn btn-primary btn-flat" />
+        </div>
+    </div>
+
+}
+@section ViewSpecificJavascript
+{
+    <script>
+        $(document).ready(function() {
+            $("#loan").submit(function(e) {
+
+                var debit = $("#debit").val();
+                var receive = $("#receive").val();
+                var income = $("#income").val();
+
+                $(".error").remove();
+
+                if ($("#loan").submit) {
+                    $("form *").removeClass("error-box");
+                }
+
+                if (debit.length < 1) {
+                    $("#debit").addClass("error-box");
+                    $("#debit").after('<span class="error">This Field is Required</span>');
+                } else {
+                    var regExp = /^[(.0-9)]*$/;
+
+                    var validNumber = regExp.test(debit);
+                    if (!validNumber) {
+                        $("#debit").addClass("error-box");
+                        $('#debit').after('<span class="error">Enter a valid value</span>');
+                        e.preventDefault();
+
+                    }
+                }
+                if (receive.length < 1) {
+                    $("#receive").addClass("error-box");
+                    $("#receive").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+                }
+
+                if (income.length < 1) {
+                    $("#income").addClass("error-box");
+                    $("#income").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+                }
+            });
+        })
+    </script>
+}
+

@@ -1,0 +1,99 @@
+﻿@model CBApplication.Core.ViewModels.NewUserViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>@ViewBag.Title.</h2>
+@if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+{
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success">
+            <strong>
+                Success!
+            </strong>@ViewBag.Message
+        </div>
+    }
+}
+else
+{
+    using (Html.BeginForm("Register", "Shared", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        <h4>Create a new account.</h4>
+
+        <hr />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.user.Email, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.user.Email, new { @class = "form-control" })
+                @Html.ValidationMessage("EmailExist", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.user.FullName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.user.FullName, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.user.Branch, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.user.Branch_Id,
+                    new SelectList(Model.Branches,"Id","BranchName"),"Select Branch",new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.user.Username, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.user.Username, new { @class = "form-control" })
+                @Html.ValidationMessage("UserExist", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.user.Role, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(m => m.user.Role, new[] {
+                    new SelectListItem() { Text = "Admin", Value = "Admin" },
+                    new SelectListItem() { Text = "Teller", Value = "Teller" } },
+                    "Choose an Option", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.user.Role, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.user.PhoneNumber, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.user.PhoneNumber, new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="form-group" hidden="hidden">
+            @Html.LabelFor(m => m.user.Password, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.PasswordFor(m => m.user.Password, new { @class = "form-control" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                @Html.LabelFor(m => m.reg.Role, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.reg.Role, new SelectList(Model.Roles, "id","roleName")
+                        , "Select Role", new { @class = "form-control" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" value="Register" />
+            </div>
+        </div>
+
+        if (ViewBag.Message != null)
+        {
+            <div class="alert alert-danger">
+                <strong>Error!</strong>@ViewBag.Message
+            </div>
+        }
+    }
+}

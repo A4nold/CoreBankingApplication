@@ -1,0 +1,173 @@
+﻿@using System.Web.UI.WebControls
+@model CBApplication.Core.ViewModels.NewUserViewModel
+@{
+    ViewBag.Title = "Edit User Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-group">
+    @Html.ActionLink(" Back to List", "Index",null,new{@class="fa fa-arrow-left btn btn-primary btn-flat"})
+</div>
+
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { @class = "form-horizontal col-md-6 col-md-offset-3 card-box display", role = "form", id = "save" }))
+{
+    @Html.AntiForgeryToken()
+    <h4>@ViewBag.Title</h4>
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.user.Id)
+
+        <div class="form-group">
+            <div class="">
+                <label>
+                    @Html.EditorFor(model => model.user.FullName, 
+                        new {htmlAttributes = new {@class = "form-control", id = "fullname", placeholder = "Full Name"}})
+                </label>
+                @Html.ValidationMessageFor(model => model.user.FullName, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="">
+                <label>
+                    @Html.EditorFor(model => model.user.PhoneNumber, 
+                        new {htmlAttributes = new {@class = "form-control", id = "phoneNumber", placeholder = "PhoneNumber"}})
+                </label>
+                @Html.ValidationMessageFor(model => model.user.PhoneNumber, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="">
+                <label>
+                    @Html.EditorFor(model => model.user.Email, 
+                        new {htmlAttributes = new {@class = "form-control", id = "email", placeholder = "@Email.Com"}})
+                </label>
+                @Html.ValidationMessageFor(model => model.user.Email, "", new {@class = "text-danger"})
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="">
+                <label>
+                    @Html.DropDownListFor(m => m.user.Branch_Name,
+                        new SelectList(Model.Branches, "BranchName", "BranchName"), "Select Branch",
+                        new {@class = "form-control", id = "branch"})
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="">
+                <label>
+                    @Html.DropDownListFor(model => model.user.Role, new[]
+                    {
+                        new SelectListItem() {Text = "Admin", Value = "Admin"},
+                        new SelectListItem() {Text = "Teller", Value = "Teller"}
+                    },
+                        "Select Role", new {@class = "form-control", id = "role"})
+                </label>
+                
+                @Html.ValidationMessageFor(model => model.user.Role, "", new
+                {
+                    @class = "text-danger",
+                })
+            </div>
+        </div>
+
+        
+
+        <div class="form-group">
+            <div class="">
+                <input type="submit" value="Save" class="btn btn-primary btn-flat" />
+            </div>
+        </div>
+    </div>
+}
+
+@section ViewSpecificJavascript
+{
+    <script>
+        $(document).ready(function() {
+            $("#save").submit(function(e) {
+                var email = $("#email").val();
+                var fullName = $("#fullname").val();
+                var branch = $("#branch").val();
+                var username = $("#username").val();
+                var role = $("#role").val();
+                var phoneNumber = $("#phoneNumber").val();
+
+                $(".error").remove();
+
+                if ($("#save").submit) {
+                    $("form *").removeClass("error-box");
+                }
+
+                if (fullName.length < 1) {
+                    $("#fullname").addClass("error-box");
+                    $("#fullname").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[A-Za-z]+( [a-zA-Z]+)*$/;
+
+                    var validName = regExp.test(fullName);
+                    if (!validName) {
+                        $("#fullname").addClass("error-box");
+                        $('#fullname').after('<span class="error">Enter a valid name</span>');
+                        e.preventDefault();
+                    }
+                }
+
+                if (branch.length < 1) {
+                    $("#branch").addClass("error-box");
+                    $("#branch").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                }
+
+                if (role.length < 1) {
+                    $("#role").addClass("error-box");
+                    $("#role").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                }
+
+                if (phoneNumber.length < 1) {
+                    $("#phoneNumber").addClass("error-box");
+                    $("#phoneNumber").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp1 = /^[+(0-9)]*$/;
+
+                    var validNumber = regExp1.test(phoneNumber);
+                    if (!validNumber) {
+                        $("#phoneNumber").addClass("error-box");
+                        $('#phoneNumber').after('<span class="error">Enter a valid PhoneNumber</span>');
+                        e.preventDefault();
+
+                    }
+                }
+
+                if (email.length < 1) {
+                    $("#email").addClass("error-box");
+                    $("#email").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regEx =
+                        /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    var validEmail = regEx.test(email);
+                    if (!validEmail) {
+                        $("#email").addClass("error-box");
+                        $('#email').after('<span class="error">Enter a valid email</span>');
+                        e.preventDefault();
+
+                    }
+                }
+            });
+        })
+    </script>
+}

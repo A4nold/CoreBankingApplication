@@ -1,0 +1,22 @@
+﻿@model CBApplication.Core.ViewModels.CustomerAccountViewModels
+@{
+    ViewBag.Title = "Close Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="container-fluid">
+        <h2 style="color: #d1d7b5;">Are You Sure ?</h2>
+        @using (Html.BeginForm("Close", "CustomerAccount", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.HiddenFor(model => model.CustomerAccount.Id)
+
+            <button type="submit" class="btn btn-danger">Yes</button>
+        }
+    </div>
+</div>
+
+
+
+

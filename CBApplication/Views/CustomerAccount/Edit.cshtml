@@ -1,0 +1,91 @@
+﻿@model CBApplication.Core.ViewModels.CustomerAccountViewModels
+@{
+    ViewBag.Title = "Edit Account Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Edit", "CustomerAccount", FormMethod.Post, new { @class = "form-horizontal col-md-5 col-md-offset-4 card-box display", id = "edit" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h4>@ViewBag.Title</h4>
+    
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.CustomerAccount.Id)
+
+    <div class="form-group">
+        <div class="">
+            @Html.EditorFor(model => model.CustomerAccount.AccountName,
+                new { htmlAttributes = new { @class = "form-control", Name = "AcctName", id = "acctName", placeholder = "Account Name" } })
+            @Html.ValidationMessageFor(model => model.CustomerAccount.AccountName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="">
+            @Html.DropDownListFor(model => model.CustomerAccount.branchName,
+                new SelectList(Model.Branches, "BranchName", "BranchName"),
+                "Select Branch", new {@class = "form-control", Name = "Branch", id = "branch" })
+            @Html.ValidationMessageFor(model => model.CustomerAccount.branchName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="">
+            @Html.EnumDropDownListFor(model => model.CustomerAccount.AccountType, "Select Account Type"
+                , new {@class = "form-control", Name = "Type", disabled = "True"})
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="">
+            <input type="submit" value="Save" class="btn btn-primary btn-flat" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}
+
+@section ViewSpecificJavascript
+{
+    <script>
+        $(document).ready(function() {
+            $("#edit").submit(function(e) {
+                var acctName = $("#acctName").val();
+                var branch = $("#branch").val();
+
+                $(".error").remove();
+
+                if ($("#edit").submit) {
+                    $("form *").removeClass("error-box");
+                }
+
+                if (acctName.length < 1) {
+                    $("#acctName").addClass("error-box");
+                    $("#acctName").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[A-Za-z]+( [a-zA-Z]+)*$/;
+
+                    var validName = regExp.test(acctName);
+                    if (!validName) {
+                        $("#acctName").addClass("error-box");
+                        $('#acctName').after('<span class="error">Enter a valid name</span>');
+                        e.preventDefault();
+                    }
+                }
+
+                if (branch.length < 1) {
+                    $("#branch").addClass("error-box");
+                    $("#branch").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                }
+            });
+        })
+    </script>
+}
+

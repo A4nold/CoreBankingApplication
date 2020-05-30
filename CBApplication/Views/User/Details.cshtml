@@ -1,0 +1,67 @@
+﻿@model CBApplication.Core.Models.User
+
+@{
+    ViewBag.Title = "Customer Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="card-box display">
+    <h4>@ViewBag.Title</h4>
+    
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Branch_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Branch_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Role)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+    </dl>
+</div>
+<p style="margin-top: 30px;">
+    @Html.ActionLink(" Edit", "Edit", new { id = Model.Id },new{@class="fa fa-pencil btn btn-primary btn-flat"}) |
+    @Html.ActionLink(" Back to List", "Index", null,new {@class="fa fa-arrow-left btn btn-primary btn-flat"})
+</p>

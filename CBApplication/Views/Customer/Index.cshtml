@@ -1,0 +1,89 @@
+﻿@model IEnumerable<CBApplication.Core.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="margin-top:10px">
+    <table class="table table-bordered table-hover display card-box" id="table_id">
+        <thead style="border-right: 5px solid #d1d7b5;">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(a => a.customerId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.Gender)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(a => a.PhoneNumber)
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        
+
+        @foreach (var item in Model)
+        {
+            <tbody style="border-right: 5px solid #d1d7b5;">
+                <tr>
+                    <td>
+                        @Html.DisplayFor(i => item.customerId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.Gender)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(i => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.ActionLink(" Edit", "Edit", new {id = item.id},new{@class="fa fa-pencil action-style"})
+                        @Html.ActionLink(" Details", "Details", new {id = item.id}, new { @class = "fa fa-eye action-style" })
+                        @if ((string)Session["Role"] == "Admin")
+                        {
+                            @Html.ActionLink(" Create Account", "Create", "CustomerAccount", new {id = item.id}, 
+                                new { @class = "fa fa-university action-style",style="color:green;" })
+                        }
+                        
+                    </td>
+                </tr>
+            </tbody>
+            
+        }
+    </table>
+    @section ViewSpecificJavascript{
+        <script>
+            $(document).ready(function () {
+                $('#table_id').DataTable();
+            });
+        </script>
+    }
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                @Html.ActionLink("Add Customer", "New",null,new{@class="btn btn-primary"})
+            </div>
+        </div>
+    </div>
+</div>
+

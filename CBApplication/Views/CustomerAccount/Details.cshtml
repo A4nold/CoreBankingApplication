@@ -1,0 +1,56 @@
+﻿@model CBApplication.Core.Models.CustomerAccount
+@{
+    ViewBag.Title = "Account Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card-box display">
+    <h4>@ViewBag.Title</h4>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Balance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Balance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentLien)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentLien)
+        </dd>
+
+    </dl>
+</div>
+<p style="margin-top:30px">
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary btn-flat" })
+</p>
+

@@ -1,0 +1,128 @@
+﻿@model CBApplication.Core.Models.Loans
+@{
+    ViewBag.Title = "Take Loan";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("TakeLoan", "CustomerAccount", FormMethod.Post, new { @class = "form-horizontal col-md-5 col-md-offset-4 card-box display", id = "takeLoan" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="">
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-error">
+                <strong>Error!&nbsp;</strong> @TempData["Message"]
+            </div>
+        }
+    </div>
+
+    <h4>Take Loan</h4>
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.TextBoxFor(model => model.Amount, new { @class = "form-control", Name = "LoanAmount",
+            id="amount", step = "any", min = 0.0, Type = "number",placeholder="Loan Amount" })
+        @Html.ValidationMessageFor(model => model.CustomerAccount.customerId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group ">
+        @Html.TextAreaFor(m => m.Narration, new { @class = "form-control", Name = "Narration",
+            id = "narration",placeholder="Narration" })
+        @Html.ValidationMessageFor(model => model.CustomerAccount.AccountName,
+            "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group ">
+        @Html.TextBoxFor(m => m.DurationInMonths, new { @class = "form-control", Name = "Duration"
+            ,placeholder="Duration in months", id = "duration", Type = "number", min="1" })
+        @Html.ValidationMessageFor(model => model.DurationInMonths,
+            "", new { @class = "text-danger" })
+    </div>
+
+
+    <div class="form-group">
+        <input type="hidden" name="Id" value="@Model.CustomerAccount.Id" />
+    </div>
+    <div class="form-group">
+        <input type="hidden" name="customerId" value="@Model.CustomerAccount.customerId" />
+    </div>
+
+
+    <div class="form-group">
+        <div class="">
+            <input type="submit" value="SUBMIT" class="btn btn-primary btn-flat" />
+        </div>
+    </div>
+
+}
+@section ViewSpecificJavascript
+{
+    <script>
+        $(document).ready(function () {
+            $("#takeLoan").submit(function (e) {
+                var amount = $("#amount").val();
+                var duration = $("#duration").val();
+                var narration = $("#narration").val();
+
+                $(".error").remove();
+
+                if ($("#takeLoan").submit) {
+                    $("form *").removeClass("error-box");
+                }
+
+                if (amount.length < 1) {
+                    $("#amount").addClass("error-box");
+                    $("#amount").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[0-9.]*$/;
+
+                    var validName = regExp.test(amount);
+                    if (!validName) {
+                        $("#amount").addClass("error-box");
+                        $('#amount').after('<span class="error">Enter a valid amount</span>');
+                        e.preventDefault();
+                    }
+                }
+
+                if (narration.length < 1) {
+                    $("#narration").addClass("error-box");
+                    $("#narration").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[A-Za-z0-9.]+( [a-zA-Z0-9.]+)*$/;
+
+                    var validName = regExp.test(narration);
+                    if (!validName) {
+                        $("#narration").addClass("error-box");
+                        $('#narration').after('<span class="error">No special symbols</span>');
+                        e.preventDefault();
+                    }
+                }
+
+                if (duration.length < 1) {
+                    $("#duration").addClass("error-box");
+                    $("#duration").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^[0-9.]*$/;
+
+                    var validName = regExp.test(duration);
+                    if (!validName) {
+                        $("#duration").addClass("error-box");
+                        $('#duration').after('<span class="error">Enter number of months</span>');
+                        e.preventDefault();
+                    }
+                }
+            });
+        })
+    </script>
+}
+

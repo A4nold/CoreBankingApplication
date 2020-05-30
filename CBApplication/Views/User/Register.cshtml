@@ -1,0 +1,201 @@
+﻿@model CBApplication.Core.ViewModels.NewUserViewModel
+@{
+    ViewBag.Title = "";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        @if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+        {
+            if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success">
+                    <strong>
+                        Success!
+                    </strong>@ViewBag.Message
+                </div>
+            }
+        }
+        else
+        {
+
+            using (Html.BeginForm("Register", "User", FormMethod.Post, new
+            {
+                @class = "form-horizontal col-md-6 col-md-offset-3 card-box display",
+                role = "form",
+                name = "register",
+                id = "register"
+            }))
+            {
+                @Html.AntiForgeryToken()
+                <h4>User Registration</h4>
+
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <div class="">
+                        @Html.TextBoxFor(m => m.user.Email, new { @class = "form-control", id = "email", placeholder = "@EMAIL" })
+                        @Html.ValidationMessage("EmailExist", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        @Html.TextBoxFor(m => m.user.FullName, new { @class = "form-control", id = "fullname", placeholder = "Full Name" })
+                        <p><span class="emsg hidden">Please Enter a Valid Name</span></p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        @Html.DropDownListFor(m => m.user.Branch_Name,
+                            new SelectList(Model.Branches,"BranchName","BranchName"),"Select Branch",new { @class = "form-control",id="branch" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        @Html.TextBoxFor(m => m.user.Username, new { @class = "form-control", id = "username", name = "username", placeholder = "Username" })
+                        @Html.ValidationMessage("UserExist", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        @Html.DropDownListFor(m => m.user.Role, new[] {
+                            new SelectListItem() { Text = "Admin", Value = "Admin" },
+                            new SelectListItem() { Text = "Teller", Value = "Teller" } },
+                            "Select Role", new { @class = "form-control",id="role" })
+                        @Html.ValidationMessageFor(m => m.user.Role, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="">
+                        @Html.TextBoxFor(m => m.user.PhoneNumber, new { @class = "form-control", id = "phoneNumber", type = "tel", placeholder = "xxxx-xxx-xxxx" })
+                    </div>
+                </div>
+                <div class="form-group" hidden="hidden">
+                    @Html.LabelFor(m => m.user.Password, new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.PasswordFor(m => m.user.Password, new { @class = "form-control" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="submit" class="btn btn-primary btn-flat" value="Submit" />
+                    </div>
+                </div>
+
+                if (ViewBag.Message != null)
+                {
+                    <div class="alert alert-danger">
+                        <strong>Error!</strong>@ViewBag.Message
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>
+
+@section ViewSpecificJavascript
+{
+    <script>
+        $(document).ready(function() {
+            $("#register").submit(function(e) {
+
+                var email = $("#email").val().trim();
+                var fullName = $("#fullname").val().trim();
+                var branch = $("#branch").val().trim();
+                var username = $("#username").val().trim();
+                var role = $("#role").val();
+                var phoneNumber = $("#phoneNumber").val().trim();
+
+                $(".error").remove();
+
+                if ($("#register").submit) {
+                    $("form *").removeClass("error-box");
+                }
+
+                if (fullName.length < 1) {
+                    $("#fullname").addClass("error-box");
+                    $("#fullname").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^([A-Za-z]{2,50})+( ([a-zA-Z]{2,50})+)*$/;
+
+                    var validName = regExp.test(fullName);
+                    if (!validName) {
+                        $("#fullname").addClass("error-box");
+                        $('#fullname').after('<span class="error">Enter a valid name</span>');
+                        e.preventDefault();
+                    }
+                }
+
+                if (branch.length < 1) {
+                    $("#branch").addClass("error-box");
+                    $("#branch").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                }
+
+                if (username.length < 1) {
+                    $("#username").addClass("error-box");
+                    $("#username").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExps = /^[_A-Za-z]+( [a-zA-Z]+)*$/;
+
+                    var validusername = regExps.test(username);
+                    if (!validusername) {
+                        $("#username").addClass("error-box");
+                        $('#username').after('<span class="error">Enter a valid name</span>');
+                        e.preventDefault();
+
+                    }
+                }
+
+                if (role.length < 1) {
+                    $("#role").addClass("error-box");
+                    $("#role").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                }
+
+                if (phoneNumber.length < 1) {
+                    $("#phoneNumber").addClass("error-box");
+                    $("#phoneNumber").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regExp = /^([\d]{9,11})$/;
+
+                    var validNumber = regExp.test(phoneNumber);
+                    if (!validNumber) {
+                        $("#phoneNumber").addClass("error-box");
+                        $('#phoneNumber')
+                            .after('<span class="error">Enter a valid PhoneNumber e.g(08033048591 or 018117201) </span>');
+                        e.preventDefault();
+
+                    }
+                }
+
+                if (email.length < 1) {
+                    $("#email").addClass("error-box");
+                    $("#email").after('<span class="error">This Field is Required</span>');
+                    e.preventDefault();
+
+                } else {
+                    var regEx =
+                        /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    var validEmail = regEx.test(email);
+                    if (!validEmail) {
+                        $("#email").addClass("error-box");
+                        $('#email').after('<span class="error">Enter a valid email</span>');
+                        e.preventDefault();
+
+                    }
+                }
+            });
+        })
+    </script>
+}
